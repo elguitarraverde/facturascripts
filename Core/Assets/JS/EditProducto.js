@@ -35,3 +35,7 @@ $(document).ready(function () {
         $(this.form.margen).val(0);
     });
 });
+
+function generateVariants() {
+    $('#modalGenerarVariantes').modal('show');
+}

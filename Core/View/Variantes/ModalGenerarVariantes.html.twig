@@ -1,0 +1,36 @@
+<div class="modal" tabindex="-1" id="modalGenerarVariantes">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ actionForm }}" id="formGenerarVariantes" method="POST">
+                    {{ formToken() }}
+                    <input type="hidden" name="idproducto" value="{{ idproducto }}">
+                    <div class="form-group">
+                    {% for atributo in atributos %}
+                        <div class="form-check">
+                            <input class="form-check-input" id="atributo-{{ atributo.codatributo }}" name="atributos[]" type="checkbox" value="{{ atributo.codatributo }}">
+                            <label class="form-check-label" for="atributo-{{ atributo.codatributo }}">
+                                {{ atributo.nombre }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPrecio">Precio</label>
+                        <input type="number" class="form-control" id="inputPrecio" name="inputPrecio" value="{{ precio }}" step="any" autocomplete="off" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('close') }}</button>
+                <button type="submit" form="formGenerarVariantes" class="btn btn-primary">{{ trans('save') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
