@@ -11,7 +11,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,8 +34,11 @@ $(document).ready(function () {
     $(".calc-price").change(function () {
         $(this.form.margen).val(0);
     });
+
+    document.body.insertAdjacentHTML('beforeend', JSON.parse(htmlModalGenerarVariantes));
+    $('<button type="button" onclick="crearVariantesAutomaticamente()" class="btn btn-spin-action btn-sm btn-outline-success mr-1">Crear Variantes Automaticamente</button>').insertAfter("#formEditVarianteNew .card .card-body button");
 });
 
-function generateVariants() {
+function crearVariantesAutomaticamente() {
     $('#modalGenerarVariantes').modal('show');
 }

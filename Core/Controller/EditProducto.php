@@ -43,6 +43,11 @@ class EditProducto extends EditController
 {
     use ProductImagesTrait;
 
+    /**
+     * @var string
+     */
+    public $htmlModalGenerarVariantes;
+
     public function getModelClassName(): string
     {
         return 'Producto';
@@ -146,16 +151,7 @@ class EditProducto extends EditController
             $this->views[$viewName]->disableColumn('attribute-value-1');
         }
 
-        // TODO este boton no se está colocando en el sittio correcto, ya que si no existe ninguna variante creada, no se muestra.
-        $this->addButton(
-            $viewName,
-            [
-                'action' => 'generateVariants()',
-                'icon' => 'fas fa-plus',
-                'label' => 'generar-variantes-automaticamente',
-                'type' => 'js',
-            ]
-        );
+        $this->htmlModalGenerarVariantes = htmlspecialchars($this->getHtmlModalGenerarVariantes());
     }
 
     /**
@@ -179,8 +175,6 @@ class EditProducto extends EditController
 
     protected function execAfterAction($action)
     {
-        $this->renderVariantsGenerateModal();
-
         switch ($action) {
             case 'generate-variants':
                 return $this->generateVariantsAction();
@@ -482,7 +476,7 @@ class EditProducto extends EditController
      * Renderiza el modal para seleccionar los atributos
      * y el precio de las variantes a generar.
      */
-    protected function renderVariantsGenerateModal(): void
+    protected function getHtmlModalGenerarVariantes()
     {
         $actionForm = $this->getModel()->url() . '&action=generate-variants';
         $attribute = new Atributo();
@@ -497,6 +491,6 @@ class EditProducto extends EditController
             ]
         );
 
-        echo $htmlModalGenerarVariantes;
+        return $htmlModalGenerarVariantes;
     }
 }
