@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of FacturaScripts
  * Copyright (C) 2017-2024 Carlos Garcia Gomez <carlos@facturascripts.com>
@@ -26,7 +26,7 @@ use FacturaScripts\Core\Tools;
 class ApiRoot extends ApiController
 {
     /** @var array */
-    private static $custom_resources = ['crearFacturaCliente', 'exportarFacturaCliente', 'uploadFiles', 'crearFacturaRectificativaCliente'];
+    private static $custom_resources = ['exportarFacturaCliente', 'uploadFiles', 'crearFacturaRectificativaCliente'];
 
     public static function addCustomResource(string $name): void
     {
@@ -35,6 +35,12 @@ class ApiRoot extends ApiController
 
     protected function exposeResources(array &$map): void
     {
+        foreach (['Factura', 'Albaran', 'Presupuesto', 'Pedido'] as $doc) {
+            foreach (['Cliente', 'Proveedor'] as $subject) {
+                self::$custom_resources[] = $doc . $subject;
+            }
+        }
+
         $json = ['resources' => self::$custom_resources];
         foreach (array_keys($map) as $key) {
             $json['resources'][] = $key;

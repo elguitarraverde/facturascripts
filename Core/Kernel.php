@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of FacturaScripts
  * Copyright (C) 2017-2025 Carlos Garcia Gomez <carlos@facturascripts.com>
@@ -288,7 +288,6 @@ final class Kernel
             '/' => 'Root',
             '/AdminPlugins' => 'AdminPlugins',
             '/api' => 'ApiRoot',
-            '/api/3/crearFacturaCliente' => 'ApiCreateFacturaCliente',
             '/api/3/crearFacturaRectificativaCliente' => 'ApiCreateFacturaRectificativaCliente',
             '/api/3/exportarFacturaCliente/*' => 'ApiExportFacturaCliente',
             '/api/3/uploadFiles' => 'ApiUploadFiles',
@@ -303,6 +302,13 @@ final class Kernel
             '/Plugins/*' => 'Files',
             '/Updater' => 'Updater',
         ];
+
+        foreach (['Cliente', 'Proveedor'] as $subject) {
+            foreach (['Factura', 'Albaran', 'Presupuesto', 'Pedido'] as $doc) {
+                $ruta = '/api/3/crear' . $doc . $subject;
+                $routes[$ruta] = 'ApiCreateDocumento';
+            }
+        }
 
         foreach ($routes as $route => $controller) {
             // si la ruta tiene *, la posición es 2, de lo contrario 1
