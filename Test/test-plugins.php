@@ -21,12 +21,13 @@ use FacturaScripts\Core\Base\DataBase;
 use FacturaScripts\Core\Cache;
 use FacturaScripts\Core\Kernel;
 use FacturaScripts\Core\Plugins;
+use FacturaScripts\Core\Tools;
 
 define("FS_FOLDER", getcwd());
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$config = FS_FOLDER . '/config.php';
+$config = FS_FOLDER . '/config-mysql.php';
 if (!file_exists($config)) {
     die($config . " not found!\n");
 }
@@ -45,3 +46,19 @@ Kernel::init();
 
 // load Init file for every plugin
 Plugins::init();
+
+new \FacturaScripts\Dinamic\Model\User();
+new \FacturaScripts\Dinamic\Model\Serie();
+new \FacturaScripts\Dinamic\Model\Almacen();
+new \FacturaScripts\Dinamic\Model\ApiKey();
+new \FacturaScripts\Dinamic\Model\Cliente();
+new \FacturaScripts\Dinamic\Model\Divisa();
+new \FacturaScripts\Dinamic\Model\Almacen();
+new \FacturaScripts\Dinamic\Model\TpvTerminal();
+new \FacturaScripts\Dinamic\Model\TpvCaja();
+new \FacturaScripts\Dinamic\Model\ShopeameOrder();
+new \FacturaScripts\Dinamic\Model\FacturaCliente();
+new \FacturaScripts\Dinamic\Model\LineaPresupuestoCliente();
+new \FacturaScripts\Dinamic\Model\LineaPresupuestoProveedor();
+new \FacturaScripts\Dinamic\Model\LineaFacturaCliente();
+new \FacturaScripts\Dinamic\Model\LineaFacturaProveedor();

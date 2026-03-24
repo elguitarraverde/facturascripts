@@ -4,6 +4,6 @@
  * Class created by Core/Base/PluginDeploy
  * @author FacturaScripts <carlos@facturascripts.com>
  */
-class Stock extends \FacturaScripts\Core\Model\Stock
+class Stock extends \FacturaScripts\Plugins\MililitrosPersonalizacion\Model\Stock
 {
 }

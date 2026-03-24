@@ -27,7 +27,7 @@ define("FS_FOLDER", getcwd());
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$config = FS_FOLDER . '/config.php';
+$config = FS_FOLDER . '/config-mysql.php';
 if (!file_exists($config)) {
     die($config . " not found!\n");
 }
@@ -60,6 +60,11 @@ if (file_exists($listPath)) {
     foreach ($list as $plugin) {
         if (Plugins::enable($plugin)) {
             echo 'Plugin ' . $plugin . ' enabled.' . PHP_EOL . PHP_EOL;
+
+            $className = 'FacturaScripts\\Plugins\\' . $plugin . '\\Init';
+            $init = new $className();
+            $init->update();
+
             continue;
         }
 

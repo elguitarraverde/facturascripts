@@ -4,6 +4,6 @@
  * Class created by Core/Base/PluginDeploy
  * @author FacturaScripts <carlos@facturascripts.com>
  */
-class AlbaranCliente extends \FacturaScripts\Core\Model\AlbaranCliente
+class AlbaranCliente extends \FacturaScripts\Plugins\MililitrosPersonalizacion\Model\AlbaranCliente
 {
 }

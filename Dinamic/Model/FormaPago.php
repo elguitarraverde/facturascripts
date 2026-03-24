@@ -4,6 +4,6 @@
  * Class created by Core/Base/PluginDeploy
  * @author FacturaScripts <carlos@facturascripts.com>
  */
-class FormaPago extends \FacturaScripts\Core\Model\FormaPago
+class FormaPago extends \FacturaScripts\Plugins\MililitrosPersonalizacion\Model\FormaPago
 {
 }
