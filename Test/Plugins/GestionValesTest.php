@@ -341,14 +341,16 @@ class GestionValesTest extends AbstractPluginTestCase
         $vale = GestionVales::getValeFromLine($lineas[0]);
 
         $this->assertNotNull($vale);
-        $this->assertEquals($factura->primaryColumnValue(), $vale->iddoc);
-        $this->assertSame($factura->modelClassName(), $vale->modeldoc);
-        $this->assertEquals($lineas[0]->primaryColumnValue(), $vale->idlinea);
-        $this->assertSame($lineas[0]->modelClassName(), $vale->modellinea);
-        $this->assertSame($cliente->codcliente, $vale->codcliente);
-        $this->assertSame($factura->idempresa, $vale->idempresa);
-        $this->assertEquals(50.0, $vale->saldoinicial);
-        $this->assertEquals(50.0, $vale->saldoactual);
+        $valeEnBaseDeDatos = new MiliVale();
+        $this->assertTrue($valeEnBaseDeDatos->loadFromCode($vale->id));
+        $this->assertEquals($factura->primaryColumnValue(), $valeEnBaseDeDatos->iddoc);
+        $this->assertSame($factura->modelClassName(), $valeEnBaseDeDatos->modeldoc);
+        $this->assertEquals($lineas[0]->primaryColumnValue(), $valeEnBaseDeDatos->idlinea);
+        $this->assertSame($lineas[0]->modelClassName(), $valeEnBaseDeDatos->modellinea);
+        $this->assertSame($cliente->codcliente, $valeEnBaseDeDatos->codcliente);
+        $this->assertSame($factura->idempresa, $valeEnBaseDeDatos->idempresa);
+        $this->assertEquals(50.0, $valeEnBaseDeDatos->saldoinicial);
+        $this->assertEquals(50.0, $valeEnBaseDeDatos->saldoactual);
         $this->assertStringContainsString($vale->codigo, $lineas[0]->descripcion);
     }
 
@@ -506,6 +508,15 @@ class GestionValesTest extends AbstractPluginTestCase
 
         $movimientoConsumo = $reciboValeVenta->getMovimientoVale();
         $this->assertEquals(-25.0, $movimientoConsumo->importe);
+        $movimientoConsumoEnBaseDeDatos = new MiliValeMovimiento();
+        $this->assertTrue($movimientoConsumoEnBaseDeDatos->loadFromCode('', [
+            new DataBaseWhere('idvale', $vale->id),
+            new DataBaseWhere('idrecibo', $reciboValeVenta->idrecibo),
+            new DataBaseWhere('idfactura', $facturaVenta->idfactura),
+        ]));
+        $this->assertEquals(-25.0, $movimientoConsumoEnBaseDeDatos->importe);
+        $this->assertEquals($reciboValeVenta->idrecibo, $movimientoConsumoEnBaseDeDatos->idrecibo);
+        $this->assertEquals($facturaVenta->idfactura, $movimientoConsumoEnBaseDeDatos->idfactura);
 
         $valeTrasConsumo = new MiliVale();
         $this->assertTrue($valeTrasConsumo->loadFromCode($vale->id));
