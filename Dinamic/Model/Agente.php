@@ -4,6 +4,6 @@
  * Class created by Core/Base/PluginDeploy
  * @author FacturaScripts <carlos@facturascripts.com>
  */
-class Agente extends \FacturaScripts\Plugins\MililitrosPersonalizacion\Model\Agente
+class Agente extends \FacturaScripts\Core\Model\Agente
 {
 }

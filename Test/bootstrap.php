@@ -27,7 +27,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // cargamos la configuración
 define("FS_FOLDER", getcwd());
 
-$config = FS_FOLDER . '/config-mysql.php';
+$config = FS_FOLDER . '/config.php';
 if (__DIR__ === '/home/scrutinizer/build/Test') {
     echo 'Executing on scrutinizer ...' . "\n\n";
     $config = FS_FOLDER . '/Test/config-scrutinizer.php';
@@ -53,12 +53,8 @@ date_default_timezone_set($timeZone);
 // clean cache
 Cache::clear();
 
-new \FacturaScripts\Core\Model\User();
-
 // iniciamos el kernel
 Kernel::init();
 
-
 // deploy
 Plugins::deploy();
-

@@ -4,6 +4,6 @@
  * Class created by Core/Base/PluginDeploy
  * @author FacturaScripts <carlos@facturascripts.com>
  */
-class Contacto extends \FacturaScripts\Plugins\MililitrosPersonalizacion\Model\Contacto
+class Contacto extends \FacturaScripts\Core\Model\Contacto
 {
 }

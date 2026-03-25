@@ -4,6 +4,6 @@
  * Class created by Core/Base/PluginDeploy
  * @author FacturaScripts <carlos@facturascripts.com>
  */
-class WidgetSelect extends \FacturaScripts\Plugins\MililitrosPersonalizacion\Lib\Widget\WidgetSelect
+class WidgetSelect extends \FacturaScripts\Core\Lib\Widget\WidgetSelect
 {
 }

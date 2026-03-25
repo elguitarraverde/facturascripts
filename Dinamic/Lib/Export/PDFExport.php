@@ -4,6 +4,6 @@
  * Class created by Core/Base/PluginDeploy
  * @author FacturaScripts <carlos@facturascripts.com>
  */
-class PDFExport extends \FacturaScripts\Plugins\PlantillasPDF\Lib\Export\PDFExport
+class PDFExport extends \FacturaScripts\Core\Lib\Export\PDFExport
 {
 }
