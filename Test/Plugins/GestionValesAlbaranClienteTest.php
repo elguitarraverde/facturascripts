@@ -45,7 +45,7 @@ class GestionValesAlbaranClienteTest extends AbstractPluginTestCase
         $cliente = $this->createCustomer();
         $user = Session::user();
         $terminal = $this->createTerminalAlbaranCliente($cliente->codcliente);
-        $caja = $this->createCaja();
+        $caja = $this->createCajaForTerminal($terminal);
         $agente = $this->createAgent();
         $productoVale = $this->getValeProduct();
 
@@ -97,7 +97,7 @@ class GestionValesAlbaranClienteTest extends AbstractPluginTestCase
         $agente = $this->createAgent();
 
         $terminalCompra = $this->createTerminalAlbaranCliente($cliente->codcliente);
-        $cajaCompra = $this->createCaja();
+        $cajaCompra = $this->createCajaForTerminal($terminalCompra);
         $productoVale = $this->getValeProduct();
 
         $compraValeData = [
@@ -124,7 +124,7 @@ class GestionValesAlbaranClienteTest extends AbstractPluginTestCase
         $this->assertEquals(50.0, $vale->saldoactual);
 
         $terminalVenta = $this->createTerminalAlbaranCliente($cliente->codcliente);
-        $cajaVenta = $this->createCaja();
+        $cajaVenta = $this->createCajaForTerminal($terminalVenta);
         $ventaData = [
             'action' => 'save-cart',
             'codcliente' => $cliente->codcliente,
@@ -173,8 +173,18 @@ class GestionValesAlbaranClienteTest extends AbstractPluginTestCase
     {
         $terminal = $this->createTerminal($codcliente);
         $terminal->doctype = 'AlbaranCliente';
+        $terminal->mostrarbeneficio = true;
+        $terminal->abrircajonauto = false;
         $this->assertTrue($terminal->save());
         return $terminal;
+    }
+
+    private function createCajaForTerminal(TpvTerminal $terminal): \FacturaScripts\Dinamic\Model\TpvCaja
+    {
+        $caja = $this->createCaja();
+        $caja->idtpv = $terminal->idtpv;
+        $this->assertTrue($caja->save());
+        return $caja;
     }
 
     private function getValeProduct(): Producto
