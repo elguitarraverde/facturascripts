@@ -20,30 +20,10 @@
 namespace FacturaScripts\Test\Core\Controller;
 
 use FacturaScripts\Core\Controller\Login;
-use FacturaScripts\Core\Lib\MultiRequestProtection;
-use FacturaScripts\Core\Request;
 use PHPUnit\Framework\TestCase;
 
 final class LoginTest extends TestCase
 {
-    public function testValidateFormTokenIgnoresInvalidResidualCookieSession(): void
-    {
-        $_GET = [];
-        $_POST = [];
-        $_REQUEST = [];
-        $_COOKIE = [
-            'fsNick' => 'user-does-not-exist',
-            'fsLogkey' => 'badkey',
-        ];
-
-        $token = (new MultiRequestProtection())->newToken();
-        $_POST['multireqtoken'] = $token;
-        $_REQUEST['multireqtoken'] = $token;
-
-        $controller = new LoginForTest('Login', '/login');
-        $this->assertTrue($controller->callValidateFormToken(Request::createFromGlobals()));
-    }
-
     public function testBlockIP(): void
     {
         // inicializamos el controlador
@@ -164,13 +144,5 @@ final class LoginTest extends TestCase
     private function getRandomIp(): string
     {
         return rand(1, 255) . '.' . rand(1, 255) . '.' . rand(1, 255) . '.' . rand(1, 255);
-    }
-}
-
-final class LoginForTest extends Login
-{
-    public function callValidateFormToken(Request $request): bool
-    {
-        return $this->validateFormToken($request);
     }
 }

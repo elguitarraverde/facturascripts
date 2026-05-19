@@ -214,9 +214,8 @@ class Login implements ControllerInterface
     {
         $multiRequestProtection = new MultiRequestProtection();
 
-        // Si llega un fsNick residual con sesión inválida, no debemos contaminar la semilla
-        // del token. Si lo hiciéramos, el token del formulario recién cargado puede fallar
-        // en la primera petición con "invalid-request" aunque el submit sea legítimo.
+        // Borramos fsNick cuando fsLogkey no valida para que MultiRequestProtection use
+        // la semilla base del formulario y no rechace el primer submit como invalid-request.
         $cookieNick = $request->cookie('fsNick', '');
         $cookieLogkey = $request->cookie('fsLogkey', '');
         if ($cookieNick && $cookieLogkey) {
