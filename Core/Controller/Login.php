@@ -214,8 +214,9 @@ class Login implements ControllerInterface
     {
         $multiRequestProtection = new MultiRequestProtection();
 
-        // Borramos fsNick cuando fsLogkey no valida para que MultiRequestProtection use
-        // la semilla base del formulario y no rechace el primer submit como invalid-request.
+        // Si $cookieNick viene de una sesión anterior pero $cookieLogkey ya no es válido,
+        // ignoramos $cookieNick para no alterar la semilla del token.
+        // Así evitamos falsos "invalid-request" en el primer login.
         $cookieNick = $request->cookie('fsNick', '');
         $cookieLogkey = $request->cookie('fsLogkey', '');
         if ($cookieNick && $cookieLogkey) {
